@@ -32,24 +32,24 @@ class Game():
 
 
 
-game = Game()
-game.cm.create_code()
+# game = Game()
+# game.cm.create_code()
 
-print("Secret Code:")
-for color in game.cm.secret_code:
-    print(Color(color).name , end=" ")
+# print("Secret Code:")
+# for color in game.cm.secret_code:
+#     print(Color(color).name , end=" ")
 
-print("")
-game.cb.color_choice()
+# print("")
+# game.cb.color_choice()
 
-print("\n\nColor Chooice:")
-for color in game.cb.field[0]:
-    print(Color(color).name , end=" ")
+# print("\n\nColor Chooice:")
+# for color in game.cb.field[0]:
+#     print(Color(color).name , end=" ")
 
-game.get_feedback(0)
+# game.get_feedback(0)
 
-print("\nFeedback: ")
-for feedback in game.code_feedback[0]:
-    print(feedback, end=" ")
+# print("\nFeedback: ")
+# for feedback in game.code_feedback[0]:
+#     print(feedback, end=" ")
 
 
