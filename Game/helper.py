@@ -12,6 +12,7 @@ class CodeBreaker():
     def __init__(self) -> None:
         self.field = []
 
+    #TODO adjust function for GUI
     def color_choice(self):
         colors = []
         for i in range(1, 6):

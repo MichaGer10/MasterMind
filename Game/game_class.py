@@ -1,4 +1,5 @@
 from helper import Color, CodeBreaker, CodeMaker
+from random import shuffle
 
 class Game():
 
@@ -15,41 +16,27 @@ class Game():
 
 
     def get_feedback(self, move_number):
-        game.code_feedback.append([-1 for i in range(0, 5)])
 
+        #initialize feedback list and helper list
+        self.code_feedback.append([-1 for i in range(0, 5)])
+        wrong_colors = []
+
+        #Find correct guessed colors and guessed places in secret code
         for idx, color in enumerate(self.cb.field[move_number]):
             if color == self.cm.secret_code[idx]:
                 self.code_feedback[move_number][idx] = 1
 
             else:
                 self.code_feedback[move_number][idx] = -1
-        
+                wrong_colors.append(self.cm.secret_code[idx])
+
+        #Find correct guessed colors in secret code
         for idx, color in enumerate(self.cb.field[move_number]):
             if self.code_feedback[move_number][idx] != 1:
-                if color in self.cm.secret_code:
-                    if self.code_feedback[self.cm.secret_code.index(color)] != 1:
-                        self.code_feedback[move_number][idx] = 0
-
-
-
-# game = Game()
-# game.cm.create_code()
-
-# print("Secret Code:")
-# for color in game.cm.secret_code:
-#     print(Color(color).name , end=" ")
-
-# print("")
-# game.cb.color_choice()
-
-# print("\n\nColor Chooice:")
-# for color in game.cb.field[0]:
-#     print(Color(color).name , end=" ")
-
-# game.get_feedback(0)
-
-# print("\nFeedback: ")
-# for feedback in game.code_feedback[0]:
-#     print(feedback, end=" ")
-
-
+                if color in wrong_colors:
+                    self.code_feedback[move_number][idx] = 0
+                    wrong_colors.remove(color)
+        
+        #multiple shuffle feedback list
+        for i in range(0,5):
+            shuffle(self.code_feedback[move_number])
