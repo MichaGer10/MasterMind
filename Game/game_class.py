@@ -7,18 +7,21 @@ class Game():
         self.cm = CodeMaker()
         self.cb = CodeBreaker()
         self.code_feedback = []
+        self.code_feedback.append([-1 for i in range(0, 5)])
+        self.GAMELENGTH = 10
+        self.move_counter = 0
 
     def initialize_game(self):
         self.cm.create_code()
         self.cb.field.clear
         self.cb.field = []
-        self.code_feedback = []
+        self.code_feedback.clear()
+        self.code_feedback.append([-1 for i in range(0, 5)])
+        self.move_counter = 0
 
 
     def get_feedback(self, move_number):
-
-        #initialize feedback list and helper list
-        self.code_feedback.append([-1 for i in range(0, 5)])
+        #initialize helper list
         wrong_colors = []
 
         #Find correct guessed colors and guessed places in secret code
@@ -40,3 +43,17 @@ class Game():
         #multiple shuffle feedback list
         for i in range(0,5):
             shuffle(self.code_feedback[move_number])
+
+        self.code_feedback.append([-1 for i in range(0, 5)])
+
+    def isWon(self):
+        if self.code_feedback[self.move_counter] == [1, 1, 1, 1, 1]:
+            return True
+        else:
+            return False
+
+    def isLoose(self):
+        if len(self.cb.field) == self.GAMELENGTH:
+            return True
+        else:
+            return False
