@@ -61,20 +61,13 @@ class CodeBreaker_Machine(CodeBreaker):
     def __init__(self) -> None:
         super().__init__()
 
-    #TODO adjust function for GUI
-    def color_choice(self):
-        colors = []
-        for i in range(1, 6):
-            color = input("Color " + str(i) + ": ")
-            
-            #is input valid?
-            while not color.strip().isdigit() or int(color) > 7 or int(color) < 0:
-                print("Wrong Input!!! Number must be in range 0-7")
-                color = input("Color " + str(i) + ": ")
-
-            colors.append(int(color))
-
+    def color_choice_random(self):
+        colors = [random.randint(0, 7) for i in range(0, 5)]
         self.field.append(colors)
+
+    def get_choice(self):
+        pass
+
 
             
 
