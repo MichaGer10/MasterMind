@@ -1,7 +1,11 @@
-import game_class
+from game_class import Game
+from mastermind.mastermind_env.envs.mastermind_env import CodeBreaker_Machine_Env
+import gym
 from helper import Color
 
-game = game_class.Game()
+env = gym.make("mastermind-v0")
+
+game = Game()
 
 game.cm.create_code()
 print("Secret Code:")

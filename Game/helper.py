@@ -1,5 +1,6 @@
 import random
 from enum import Enum
+from gym import Env
 
 class CodeMaker():
 
@@ -57,16 +58,6 @@ class CodeBreaker_Human(CodeBreaker):
         self.field.append(colors)
 
 
-class CodeBreaker_Machine(CodeBreaker):
-    def __init__(self) -> None:
-        super().__init__()
-
-    def color_choice_random(self):
-        colors = [random.randint(0, 7) for i in range(0, 5)]
-        self.field.append(colors)
-
-    def get_choice(self):
-        pass
 
 
             
