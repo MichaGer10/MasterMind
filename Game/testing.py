@@ -1,36 +1,38 @@
 import game_class
 from helper_game import Color
 
-game = game_class.Game()
+print(Color["RED"].value)
 
-game.cm.create_code()
-print("Secret Code:")
-for color in game.cm.secret_code:
-    print(Color(color).name , end=" ")
-print("")
+# game = game_class.Game()
 
-won = False
-loose = False
+# game.cm.create_code()
+# print("Secret Code:")
+# for color in game.cm.secret_code:
+#     print(Color(color).name , end=" ")
+# print("")
 
-while not won and not loose:
+# won = False
+# loose = False
 
-    game.cb.color_choice()
+# while not won and not loose:
 
-    print("\n\nColor Chooice:")
-    for color in game.cb.field[game.move_counter]:
-        print(Color(color).name , end=" ")
+#     game.cb.color_choice()
 
-    game.get_feedback(game.move_counter)
+#     print("\n\nColor Chooice:")
+#     for color in game.cb.field[game.move_counter]:
+#         print(Color(color).name , end=" ")
 
-    print("\nFeedback: ")
-    print(game.code_feedback[game.move_counter])
+#     game.get_feedback(game.move_counter)
 
-    if game.isWon():
-        print("YOU WON THE GAME!!!")
-        won = True
+#     print("\nFeedback: ")
+#     print(game.code_feedback[game.move_counter])
 
-    if game.isLoose():
-        print("You Loose! Try Again!")
-        loose = True
+#     if game.isWon():
+#         print("YOU WON THE GAME!!!")
+#         won = True
+
+#     if game.isLoose():
+#         print("You Loose! Try Again!")
+#         loose = True
     
-    game.move_counter += 1
+#     game.move_counter += 1

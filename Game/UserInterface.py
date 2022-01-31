@@ -5,7 +5,7 @@ from mainwindow import *        #Ui_MasterMind
 from PyQt5 import *             #QtCore, QtGui, QtWidgets
 from helper_ui import Color
 import game_class
-from helper_game import Color
+import helper_game
 
 
 class MainWindow(QMainWindow):
@@ -16,12 +16,12 @@ class MainWindow(QMainWindow):
         self.show()
         self.colorsButtons = []
         self.colorsFeedback = []
-        self.Turn=1
-        self.newTry(self.Turn)
+        self.turn = 0
+        self.newTry(self.turn)
         self.connectColors()
-        self.connectNewButtons(self.Turn)
+        self.connectNewButtons(self.turn)
         self.ui.LogIn.clicked.connect(lambda: self.nextTurn())
-        self.ColorFeedBack(0,[1,-1,0,-1,1])
+        self.ColorFeedBack(0,[-1,-1,-1,-1,-1])
         self.ChoosenColor= ""
         self.colors = []
         
@@ -30,14 +30,24 @@ class MainWindow(QMainWindow):
 
     def nextTurn(self):
         allChoosen = True
-        for button in self.colorsButtons[self.Turn - 1]:
+        colors_move = []
+
+        for button in self.colorsButtons[self.turn]:
             if button.styleSheet() == "background-color: rgb(255,255,255);":
                 allChoosen = False
+        
    
         if allChoosen == True:
-            self.Turn+=1
-            self.newTry(self.Turn)
-            self.connectNewButtons(self.Turn)
+            for color in self.getColorsRow(self.turn):
+                colors_move.append(helper_game.Color[color].value)
+            self.game.set_next_move(colors_move)
+            # print(self.game.get_feedback(self.turn))
+            # self.colorsFeedback(0, [1,0,-1,1,1])
+            self.ColorFeedBack(self.turn, self.game.get_feedback(self.turn))
+            self.turn+=1
+            self.newTry(self.turn)
+            self.connectNewButtons(self.turn)
+            
       
     def connectColors(self):
         self.ui.Blue.clicked.connect(lambda: self.ColorChoice(self.ui.Blue.styleSheet()))
@@ -54,7 +64,6 @@ class MainWindow(QMainWindow):
          
 
     def connectNewButtons(self, rowNumber):
-        rowNumber -= 1
         self.colorsButtons[rowNumber][0].clicked.connect(lambda: self.colorsButtons[rowNumber][0].setStyleSheet(self.ChoosenColor))
         self.colorsButtons[rowNumber][1].clicked.connect(lambda: self.colorsButtons[rowNumber][1].setStyleSheet(self.ChoosenColor))
         self.colorsButtons[rowNumber][2].clicked.connect(lambda: self.colorsButtons[rowNumber][2].setStyleSheet(self.ChoosenColor))
@@ -102,7 +111,7 @@ class MainWindow(QMainWindow):
         Feld = QtWidgets.QPushButton(self.ui.frame_5)
         Feld.setMinimumSize(QtCore.QSize(20, 20))
         Feld.setMaximumSize(QtCore.QSize(20, 20))
-        Feld.setStyleSheet("background-color: rgb(0,0,0)")
+        Feld.setStyleSheet("background-color: transparent;")
         Feld.setObjectName("FeedbackFeld" + str(rowNumber) + str(columnNumber))
         self.ui.gridLayout.addWidget(Feld, rowNumber, columnNumber, 1, 1, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         return Feld
