@@ -14,8 +14,50 @@ class MainWindow(QMainWindow):
         self.show()
         self.colorsButtons = []
         self.colorsFeedback = []
-        self.newTry(1,1)
+        self.Turn=1
+        self.newTry(self.Turn)
+        self.connectColors()
+        self.connectNewButtons(self.Turn)
+        self.ui.LogIn.clicked.connect(lambda: self.nextTurn())
         self.ColorFeedBack(0,[1,-1,0,-1,1])
+        self.ChoosenColor= ""
+        self.colors = []
+
+    def nextTurn(self):
+        allChoosen = True
+        for button in self.colorsButtons[self.Turn - 1]:
+            if button.styleSheet() == "background-color: rgb(255,255,255);":
+                allChoosen = False
+   
+        if allChoosen == True:
+            self.Turn+=1
+            self.newTry(self.Turn)
+            self.connectNewButtons(self.Turn)
+      
+    def connectColors(self):
+        self.ui.Blue.clicked.connect(lambda: self.ColorChoice(self.ui.Blue.styleSheet()))
+        self.ui.Red.clicked.connect(lambda: self.ColorChoice(self.ui.Red.styleSheet()))
+        self.ui.Green.clicked.connect(lambda: self.ColorChoice(self.ui.Green.styleSheet()))
+        self.ui.DeepGreen.clicked.connect(lambda: self.ColorChoice(self.ui.DeepGreen.styleSheet()))
+        self.ui.Lila.clicked.connect(lambda: self.ColorChoice(self.ui.Lila.styleSheet()))
+        self.ui.Yellow.clicked.connect(lambda: self.ColorChoice(self.ui.Yellow.styleSheet()))
+        self.ui.Orange.clicked.connect(lambda: self.ColorChoice(self.ui.Orange.styleSheet()))
+        self.ui.Turquish.clicked.connect(lambda: self.ColorChoice(self.ui.Turquish.styleSheet()))
+
+    def ColorChoice(self,color):
+        self.ChoosenColor = color
+         
+
+    def connectNewButtons(self, rowNumber):
+        rowNumber -= 1
+        self.colorsButtons[rowNumber][0].clicked.connect(lambda: self.colorsButtons[rowNumber][0].setStyleSheet(self.ChoosenColor))
+        self.colorsButtons[rowNumber][1].clicked.connect(lambda: self.colorsButtons[rowNumber][1].setStyleSheet(self.ChoosenColor))
+        self.colorsButtons[rowNumber][2].clicked.connect(lambda: self.colorsButtons[rowNumber][2].setStyleSheet(self.ChoosenColor))
+        self.colorsButtons[rowNumber][3].clicked.connect(lambda: self.colorsButtons[rowNumber][3].setStyleSheet(self.ChoosenColor))
+        self.colorsButtons[rowNumber][4].clicked.connect(lambda: self.colorsButtons[rowNumber][4].setStyleSheet(self.ChoosenColor))
+    
+              
+            
 
     def getColorsRow(self, rowNumber):
         ColorsTry = []
@@ -27,29 +69,19 @@ class MainWindow(QMainWindow):
 
         return ColorsTry
 
-
-    
-
-
-
-
     def ColorFeedBack(self,rowNumber, feedbacks):
         feedbacks.sort(reverse=True)
         for idx, feedback in enumerate(feedbacks):
-            if feedback == 1:
+            if feedback == 2:
                 self.colorsFeedback[rowNumber][idx].setStyleSheet("background-color: rgb(0,0,0);")
-            elif feedback == 0:
+            elif feedback == 1:
                 self.colorsFeedback[rowNumber][idx].setStyleSheet("background-color: rgb(255,255,255);")
             else:
                 self.colorsFeedback[rowNumber][idx].setStyleSheet("background-color: transparent;")
 
-
-
-    def newTry(self,columnNumber, LogIn):
-        if LogIn==True:
+    def newTry(self,columnNumber):
             colorsButtonTemp  = []
             colorsFeedbackTemp = []
-            LogIn = False
             for x in range (1,11):
                 if x >5:
                     colorsFeedbackTemp.append(self.createNewButtonsSmall(columnNumber,x))
@@ -60,20 +92,12 @@ class MainWindow(QMainWindow):
             self.colorsButtons.append(colorsButtonTemp)
             self.colorsFeedback.append(colorsFeedbackTemp)
 
-
-        # for y in range(1,10):
-        #     for x in range (1,11):
-        #         if x >5:
-        #             self.createNewButtonsSmall(y,x)
-        #         else:
-        #             self.createNewButtonsBig(y,x)
-
         
     def createNewButtonsSmall(self, rowNumber, columnNumber):
         Feld = QtWidgets.QPushButton(self.ui.frame_5)
         Feld.setMinimumSize(QtCore.QSize(20, 20))
         Feld.setMaximumSize(QtCore.QSize(20, 20))
-        Feld.setStyleSheet("background-color: rgb(255,0,0);")
+        Feld.setStyleSheet("background-color: rgb(0,0,0)")
         Feld.setObjectName("FeedbackFeld" + str(rowNumber) + str(columnNumber))
         self.ui.gridLayout.addWidget(Feld, rowNumber, columnNumber, 1, 1, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         return Feld
@@ -81,40 +105,9 @@ class MainWindow(QMainWindow):
     def createNewButtonsBig(self, rowNumber, columnNumber):
         Feld = QtWidgets.QPushButton(self.ui.frame_5)
         Feld.setMinimumSize(QtCore.QSize(100, 40))
-        Feld.setStyleSheet("background-color: rgb(255,0,0);")
+        Feld.setStyleSheet("background-color: rgb(255,255,255);")
         Feld.setObjectName("Feld"+ str(rowNumber) + str(columnNumber))
+        Feld.setText("Feld"+ str(rowNumber) + str(columnNumber))
         self.ui.gridLayout.addWidget(Feld, rowNumber, columnNumber, 1, 1, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         return Feld
 
-
-if __name__ =="__main__":
-    app= QApplication(sys.argv)
-    window = MainWindow()
-    sys.exit(app.exec_())
-
-
-
-
-
-
-# app= QtWidgets.QApplication(sys.argv)
-# window = QtWidgets.QMainWindow()
-
-
-
-# #ui_window = Ui_MasterMind()
-# ui_window.setupUi(window)
-# window.setWindowTitle("MasterMind")
-# window.show()
-# self.ui_window.createNewButtons(0,0)
-# # for y in range(0,8):
-# #     for y in range(0,10):
-# #         createnewButtons
-# def createNewButtons(self, rowNumber, columnNumber):
-#     self.Feld = QtWidgets.QPushButton(self.ui.frame_5)
-#     self.Feld.setMinimumSize(QtCore.QSize(40, 40))
-#     self.Feld.setStyleSheet("background-color: rgb(255, 0, 0);")
-#     self.Feld.setObjectName("Feld")
-#     self.ui.gridLayout.addWidget(self.Feld, rowNumber, columnNumber, 1, 1, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-
-# sys.exit(app.exec())

@@ -1,34 +1,11 @@
-import random
 from enum import Enum
 
-class CodeMaker():
-
-    def create_code(self):
-        self.secret_code = (random.randint(0,7), random.randint(0,7), random.randint(0,7), random.randint(0,7), random.randint(0,7))
-
-
-class CodeBreaker():
-    
-    def __init__(self) -> None:
-        self.field = []
-
-    #TODO adjust function for GUI
-    def color_choice(self):
-        colors = []
-        for i in range(1, 6):
-            color = input("Color " + str(i) + ": ")
-            colors.append(int(color))
-
-        self.field.append(colors)
-
-            
-
 class Color(Enum):
-    RED = 0
-    BLUE = 1
-    NEON_GREEN = 2
-    YELLOW = 3
-    PURPLE = 4
-    TURQUOISE = 5
-    ORANGE = 6
-    DEEP_GREEN = 7
+    RED = (255,0,0)
+    BLUE = (0,0,255)
+    NEON_GREEN = (0,255,0)
+    YELLOW = (255,255,0)
+    PURPLE = (255,0,255)
+    TURQUOISE = (0,255,255)
+    ORANGE = (255,128,0)
+    DEEP_GREEN = (0,100,0)
