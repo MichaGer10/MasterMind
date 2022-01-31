@@ -13,7 +13,7 @@ class Game():
 
     def initialize_game(self):
         self.cm.create_code()
-        self.cb.field.clear
+        self.cb.field.clear()
         self.cb.field = []
         self.code_feedback.clear()
         self.code_feedback.append([0 for i in range(0, 5)])
@@ -62,7 +62,7 @@ class Game():
             return False
 
     def isLoose(self):
-        if len(self.cb.field) == self.GAMELENGTH:
+        if len(self.cb.field) >= self.GAMELENGTH:
             return True
         else:
             return False

@@ -3,15 +3,14 @@ from mastermind.mastermind_env.envs.mastermind_env import CodeBreaker_Machine_En
 import gym
 from helper import Color
 
-env = gym.make("mastermind-v0")
 
 game = Game()
 
 game.cm.create_code()
-print("Secret Code:")
-for color in game.cm.secret_code:
-    print(Color(color).name , end=" ")
-print("")
+# print("Secret Code:")
+# for color in game.cm.secret_code:
+#     print(Color(color).name , end=" ")
+# print("")
 
 won = False
 loose = False
@@ -38,3 +37,5 @@ while not won and not loose:
         loose = True
     
     game.move_counter += 1
+
+print(game.cm.secret_code)

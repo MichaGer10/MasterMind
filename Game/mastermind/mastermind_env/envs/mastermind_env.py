@@ -1,13 +1,15 @@
 from gym import Env
-from gym.spaces import MultiDiscrete
+from gym.spaces import Box
 from game_class import Game
 import numpy as np
 
 class CodeBreaker_Machine_Env(Env):
     def __init__(self):
-        self.mastermind = Game
-        self.action_space = MultiDiscrete([8, 8, 8, 8, 8])
-        self.observation_space = MultiDiscrete([3, 3, 3, 3, 3])
+        self.mastermind = Game()
+
+        self.action_space = Box(low=0, high=7, shape=(5, 1), dtype=np.uint8)
+        self.observation_space = Box(low=0, high=2, shape=(5, 1), dtype=np.uint8)
+
         self.move_counter = 0
 
     def step(self, action):
@@ -33,6 +35,9 @@ class CodeBreaker_Machine_Env(Env):
             done = True
 
         info = {}
+        
+        #increment intern counter
+        self.move_counter += 1
 
         return move_feedback, reward, done, info
              
