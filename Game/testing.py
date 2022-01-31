@@ -1,5 +1,5 @@
 import game_class
-from helper import Color
+from helper_game import Color
 
 game = game_class.Game()
 

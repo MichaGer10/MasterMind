@@ -3,7 +3,9 @@ from PyQt5.QtWidgets import *   #QApplication, QMainWindow
 from qtpy import *              #QtWidgets
 from mainwindow import *        #Ui_MasterMind
 from PyQt5 import *             #QtCore, QtGui, QtWidgets
-from helper import Color
+from helper_ui import Color
+import game_class
+from helper_game import Color
 
 
 class MainWindow(QMainWindow):
@@ -22,6 +24,9 @@ class MainWindow(QMainWindow):
         self.ColorFeedBack(0,[1,-1,0,-1,1])
         self.ChoosenColor= ""
         self.colors = []
+        
+        #implement game
+        self.game = game_class.Game()
 
     def nextTurn(self):
         allChoosen = True

@@ -1,10 +1,11 @@
-from helper import Color, CodeBreaker, CodeMaker
+from helper_game import Color, CodeBreaker, CodeMaker
 from random import shuffle
 
 class Game():
 
     def __init__(self) -> None:
         self.cm = CodeMaker()
+        self.cm.create_code()
         self.cb = CodeBreaker()
         self.code_feedback = []
         self.code_feedback.append([-1 for i in range(0, 5)])
