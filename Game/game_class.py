@@ -56,7 +56,7 @@ class Game():
         return self.code_feedback[move_number]
 
     def isWon(self):
-        if self.code_feedback[self.move_counter] == [2, 2, 2, 2, 2]:
+        if self.code_feedback[self.move_counter - 1] == [2, 2, 2, 2, 2]:
             return True
         else:
             return False
