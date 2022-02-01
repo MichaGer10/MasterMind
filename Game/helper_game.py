@@ -5,7 +5,7 @@ class CodeMaker():
 
     def create_code(self):
         self.secret_code = (random.randint(0,7), random.randint(0,7), random.randint(0,7), random.randint(0,7), random.randint(0,7))
-
+        #self.secret_code = (0,0,0,0,0)
 
 class CodeBreaker():
     

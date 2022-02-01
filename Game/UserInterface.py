@@ -61,6 +61,7 @@ class MainWindow(QMainWindow):
 
     def ColorChoice(self,color):
         self.ChoosenColor = color
+        self.ui.WIN.setStyleSheet(self.ChoosenColor)
          
 
     def connectNewButtons(self, rowNumber):
@@ -92,6 +93,17 @@ class MainWindow(QMainWindow):
                 self.colorsFeedback[rowNumber][idx].setStyleSheet("background-color: rgb(255,255,255);")
             else:
                 self.colorsFeedback[rowNumber][idx].setStyleSheet("background-color: transparent;")
+        
+        Prove=True
+        for Check in feedbacks:
+            if Check != 2:
+                Prove= False
+
+        if Prove == True:
+          self.ui.LOSE.setStyleSheet("background-color: rgb(0,255,0)")
+          self.ui.LOSE.setText("Sie haben gewonnen")
+          
+
 
     def newTry(self,columnNumber):
             colorsButtonTemp  = []
@@ -121,7 +133,7 @@ class MainWindow(QMainWindow):
         Feld.setMinimumSize(QtCore.QSize(100, 40))
         Feld.setStyleSheet("background-color: rgb(255,255,255);")
         Feld.setObjectName("Feld"+ str(rowNumber) + str(columnNumber))
-        Feld.setText("Feld"+ str(rowNumber) + str(columnNumber))
+        #Feld.setText("Feld"+ str(rowNumber) + str(columnNumber))
         self.ui.gridLayout.addWidget(Feld, rowNumber, columnNumber, 1, 1, QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         return Feld
 
