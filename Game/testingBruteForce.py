@@ -12,7 +12,6 @@ for episode in range(0, 10000000):
     done = False
     reward_total = 0
     
-    break
     while not done:
         action = [random.randint(0, 7) for i in range(0, 5)]
         n_state, reward, done, info = env.step(action)
