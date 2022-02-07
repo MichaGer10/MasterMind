@@ -7,8 +7,8 @@ class CodeBreaker_Machine_Env(Env):
     def __init__(self):
         self.mastermind = Game()
 
-        self.action_space = Box(low=0, high=7, shape=(5, 1), dtype=np.uint8)
-        self.observation_space = Box(low=0, high=2, shape=(5, 1), dtype=np.uint8)
+        self.action_space = Box(low=0, high=7, shape=(5,), dtype=np.uint8)
+        self.observation_space = Box(low=0, high=2, shape=(5,), dtype=np.uint8)
 
         self.move_counter = 0
 
@@ -19,7 +19,7 @@ class CodeBreaker_Machine_Env(Env):
 
         #apply action
         self.mastermind.set_next_move(action)
-        move_feedback = self.mastermind.get_feedback(self.move_counter)
+        move_feedback = np.array(self.mastermind.get_feedback(self.move_counter), dtype=np.uint8)
 
         #Calculate reward
         if self.mastermind.isWon():
@@ -48,5 +48,10 @@ class CodeBreaker_Machine_Env(Env):
         pass
 
     def reset(self):
-         self.mastermind.initialize_game()
-         self.move_counter = 0
+
+        ret_val = np.array(self.mastermind.get_feedback_move(self.move_counter), dtype=np.uint8)
+
+        self.mastermind.initialize_game()
+        self.move_counter = 0
+
+        return ret_val

@@ -8,7 +8,7 @@ class Game():
         self.cb = CodeBreaker()
         self.code_feedback = []
         self.code_feedback.append([0 for i in range(0, 5)])
-        self.GAMELENGTH = 10
+        self.GAMELENGTH = 15
         self.move_counter = 0
 
     def initialize_game(self):

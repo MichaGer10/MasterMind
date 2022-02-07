@@ -4,8 +4,6 @@ import gym
 import random
 
 env = gym.make("mastermind-v0")
-print(env.action_space.sample())
-print(env.observation_space.sample())
 
 for episode in range(0, 10000000):
     state = env.reset()
@@ -19,3 +17,5 @@ for episode in range(0, 10000000):
 
     if reward_total > -1000 :
         print("Episode: " + str(episode) + " Reward: " + str(reward_total))
+    print(state)
+    break
