@@ -13,8 +13,12 @@ class CodeBreaker_Machine_Env(Env):
         self.move_counter = 0
 
     def step(self, action):
-
         
+        action = np.round(action * 4)
+        action = np.clip(action, 0, 7)
+        
+
+
         done = False
 
         #apply action
