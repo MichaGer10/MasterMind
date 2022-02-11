@@ -6,6 +6,7 @@ import numpy as np
 class CodeBreaker_Machine_Env(Env):
     def __init__(self):
         self.mastermind = Game()
+        self.max_mean_feedback = 0
 
         self.action_space = Box(low=0, high=7, shape=(5,), dtype=np.uint8)
         self.observation_space = Box(low=0, high=2, shape=(5,), dtype=np.uint8)
@@ -14,7 +15,7 @@ class CodeBreaker_Machine_Env(Env):
 
     def step(self, action):
         
-        action = np.round(action * 4)
+        action = np.rint(action * 4)
         action = np.clip(action, 0, 7)
         
 
@@ -24,11 +25,15 @@ class CodeBreaker_Machine_Env(Env):
         #apply action
         self.mastermind.set_next_move(action)
         move_feedback = np.array(self.mastermind.get_feedback(self.move_counter), dtype=np.uint8)
+        
 
         #Calculate reward
         if self.mastermind.isWon():
             reward = 1000
             done = True
+        elif np.mean(move_feedback) > self.max_mean_feedback:
+            reward = 2
+            self.max_mean_feedback = np.mean(move_feedback)
         elif np.mean(move_feedback) > np.mean(self.mastermind.get_feedback_move(self.move_counter - 1)):
             reward = -1
         else:

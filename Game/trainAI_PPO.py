@@ -16,6 +16,6 @@ callback = TrainAndLoggingCallback(check_freq=10000, save_path=CHECKPOINT_DIR)
 
 env = gym.make("mastermind-v0")
 
-model = SAC('MlpPolicy', env, tensorboard_log=LOG_DIR, verbose=1, learning_rate=0.01)
+model = PPO('MlpPolicy', env, tensorboard_log=LOG_DIR, verbose=1, learning_rate=0.0000001, n_steps=16384, clip_range=.1, gamma=.99, gae_lambda=.9)
 
-model.learn(total_timesteps=1000000)
+model.learn(total_timesteps=10000000)
