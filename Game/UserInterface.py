@@ -40,6 +40,9 @@ class MainWindow(QMainWindow):
         if allChoosen == True:
             for color in self.getColorsRow(self.turn):
                 colors_move.append(helper_game.Color[color].value)
+
+            for button in self.colorsButtons[self.turn]:
+                button.setEnabled(False)
             self.game.set_next_move(colors_move)
             # print(self.game.get_feedback(self.turn))
             # self.colorsFeedback(0, [1,0,-1,1,1])
