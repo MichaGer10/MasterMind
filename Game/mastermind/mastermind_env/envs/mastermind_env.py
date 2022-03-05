@@ -1,5 +1,6 @@
 from gym import Env
-from gym.spaces import Box
+from gym.spaces import Box, Tuple, Discrete, MultiDiscrete
+from torch import uint8
 from game_class import Game
 import numpy as np
 
@@ -8,15 +9,21 @@ class CodeBreaker_Machine_Env(Env):
         self.mastermind = Game()
         self.max_mean_feedback = 0
 
-        self.action_space = Box(low=0, high=7, shape=(5,), dtype=np.uint8)
-        self.observation_space = Box(low=0, high=2, shape=(5,), dtype=np.uint8)
+        self.action_space = MultiDiscrete([8 for _ in range(5)])
+        self.observation_space = MultiDiscrete([3 for _ in range(5)])
+
+        # self.action_space = Tuple(Discrete(8) for _ in range(5))
+        # self.observation_space = Tuple(Discrete(3) for _ in range(5))
+        
+        # self.action_space = Box(low=0, high=7, shape=(5,), dtype=np.uint8)
+        # self.observation_space = Box(low=0, high=2, shape=(5,), dtype=np.uint8)
 
         self.move_counter = 0
 
     def step(self, action):
         
-        action = np.rint(action * 4)
-        action = np.clip(action, 0, 7)
+        # action = np.rint(action * 4)
+        # action = np.clip(action, 0, 7)
         
 
 
@@ -47,6 +54,7 @@ class CodeBreaker_Machine_Env(Env):
         
         #increment intern counter
         self.move_counter += 1
+
 
         return move_feedback, reward, done, info
              
